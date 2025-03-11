@@ -43,9 +43,9 @@ EmployeeEngagementAnalysis/
 ├── input/
 │   └── employee_data.csv
 ├── outputs/
-│   ├── departments_high_satisfaction.csv
-│   ├── valued_no_suggestions.txt
-│   └── engagement_levels_job_titles.csv
+│   ├── task1_departments_high_satisfaction.csv
+│   ├── task2_valued_no_suggestions.csv
+│   └── task3_engagement_levels_job_titles.csv
 ├── src/
 │   ├── task1_identify_departments_high_satisfaction.py
 │   ├── task2_valued_no_suggestions.py
@@ -68,7 +68,7 @@ You can run the analysis tasks either locally or using Docker.
 
 1. **Navigate to the Project Directory**:
    ```bash
-   cd EmployeeEngagementAnalysis/
+   cd spark-structured-api-employee-engagement-analysis-Scheruk1701/
    ```
 
 2. **Execute Each Task Using `spark-submit`**:
@@ -85,7 +85,7 @@ You can run the analysis tasks either locally or using Docker.
    ```
    You should see:
    - `departments_high_satisfaction.csv`
-   - `valued_no_suggestions.txt`
+   - `valued_no_suggestions.csv`
    - `engagement_levels_job_titles.csv`
 
 #### **b. Running with Docker (Optional)**
@@ -97,7 +97,7 @@ You can run the analysis tasks either locally or using Docker.
 
 2. **Access the Spark Master Container**:
    ```bash
-   docker exec -it spark-master bash
+   docker exec -it my-spark-master bash
    ```
 
 3. **Navigate to the Spark Directory**:
