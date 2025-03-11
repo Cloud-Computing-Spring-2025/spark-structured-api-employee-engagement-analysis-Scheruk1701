@@ -1,7 +1,5 @@
-# task2_valued_no_suggestions.py
-
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count
+from pyspark.sql.functions import col, count, round as spark_round
 
 def initialize_spark(app_name="Task2_Valued_No_Suggestions"):
     """
@@ -38,14 +36,20 @@ def identify_valued_no_suggestions(df):
     Returns:
         tuple: Number of such employees and their proportion.
     """
-    # TODO: Implement Task 2
-    # Steps:
-    # 1. Identify employees with SatisfactionRating >= 4.
-    # 2. Among these, filter those with ProvidedSuggestions == False.
-    # 3. Calculate the number and proportion of these employees.
-    # 4. Return the results.
-
-    pass  # Remove this line after implementing the function
+    # Filter employees with SatisfactionRating >= 4 and ProvidedSuggestions == False
+    valued_no_suggestions_df = df.filter((col("SatisfactionRating") >= 4) & (col("ProvidedSuggestions") == False))
+    
+    # Count the number of such employees
+    num_valued_no_suggestions = valued_no_suggestions_df.count()
+    
+    # Count the total number of employees
+    total_employees = df.count()
+    
+    # Calculate the proportion
+    proportion = (num_valued_no_suggestions / total_employees) * 100 if total_employees > 0 else 0
+    proportion = round(proportion, 2)
+    
+    return num_valued_no_suggestions, proportion
 
 def write_output(number, proportion, output_path):
     """
@@ -71,8 +75,8 @@ def main():
     spark = initialize_spark()
     
     # Define file paths
-    input_file = "/workspaces/Employee_Engagement_Analysis_Spark/input/employee_data.csv"
-    output_file = "/workspaces/Employee_Engagement_Analysis_Spark/outputs/task2/valued_no_suggestions.txt"
+    input_file = "/workspaces/spark-structured-api-employee-engagement-analysis-Scheruk1701/input/employee_data.csv"
+    output_file = "/workspaces/spark-structured-api-employee-engagement-analysis-Scheruk1701/outputs/task2_valued_no_suggestions.csv"
     
     # Load data
     df = load_data(spark, input_file)
